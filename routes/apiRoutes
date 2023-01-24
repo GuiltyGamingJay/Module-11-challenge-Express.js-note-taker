@@ -1,0 +1,5 @@
+const apiRouter = require("express").Router();
+const { readFromFile, readAndAppend, uuid } = require("./../db/notes");
+const fs = require("fs")
+
+module.exports = apiRouter;
