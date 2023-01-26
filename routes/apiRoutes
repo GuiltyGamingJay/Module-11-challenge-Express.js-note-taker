@@ -2,4 +2,13 @@ const apiRouter = require("express").Router();
 const { readFromFile, readAndAppend, uuid } = require("./../db/notes");
 const fs = require("fs")
 
+// route to get notes
+apiRouter.get("/notes", (req, res) => {
+    console.info(`${req.method} request received for notes`);
+    //read from db.json file, json.parse the data
+    readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
+});
+
+
+
 module.exports = apiRouter;
