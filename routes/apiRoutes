@@ -16,5 +16,25 @@ apiRouter.post("/notes", (req, res) => {
     res.send("new note has been added"); 
 });
 
+apiRouter.delete("/notes/:id", function (req, res) {
+    // reads db.json file
+    fs.readFile("./db/db.json", (err, data) => {
+        if(err) throw err
+        // the current array state held inside variable
+        let currentNotes = JSON.parse(data)
+        // for loop to check very notes inside db.json file
+        for(i=0; i< currentNotes.length; i++) {
+            // if the id of the deleted note matches id of note in db.json file
+            if(currentNotes[i].id == req.params.id) {
+                // remove the notes
+                currentNotes.splice(i, 1)
+            }
+        }
+        fs.writeFile("./db/db.json", JSON.stringify(currentNotes), (err) => {
+            if(err) throw err;
+            res.send("deleted succesfully")
+        })
+    })
+});
 
 module.exports = apiRouter;
